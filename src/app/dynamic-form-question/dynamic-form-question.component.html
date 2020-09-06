@@ -1,0 +1,38 @@
+<div  [formGroup]="form">
+    <label [attr.for]="question.key">{{question.text}}</label>
+  
+    <div [ngSwitch]="question.type">
+        <ng-container *ngSwitchCase="'boolean'">
+            <div class="b-class">
+                <input type="checkbox" [formControlName]="question.options[0].linkId"
+                [id]="question.options[0].linkId" [type]="question.options[0].type" [value]="question.options[0].value" />
+            </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'group'">
+            <div class="group-class" *ngFor="let opt of question.options">
+                <div *ngIf="'checkBox'==opt.type">
+                    {{opt.text}}
+                    <input type="checkbox" [formControlName]="opt.linkId"
+                        [id]="opt.linkId" [type]="opt.type">               
+                </div>
+                <div *ngIf="'text'==opt.type">
+                    {{opt.text}}
+                    <input  [formControlName]="opt.linkId"
+                    [id]="opt.linkId" [type]="opt.type">
+                </div>
+                <div *ngIf="'date'==opt.type">
+                    {{opt.text}}
+                    <input  [formControlName]="opt.linkId"
+                    [id]="opt.linkId" [type]="opt.type">
+                    
+                </div>
+
+            </div>
+        </ng-container>
+
+  
+    </div>
+  
+    <!--div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div-->
+  </div>
