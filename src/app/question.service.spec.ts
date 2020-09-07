@@ -16,22 +16,32 @@ fdescribe('QuestionService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('check build response', async () => {
-    const questionJsonData = JSON.stringify(getjson());
-    console.log();
-    //const questionJsonData = require('./questions.json');
-    const service = TestBed.get(QuestionService);
-    let questionSpy :jasmine.SpyObj<QuestionService>;
-    const spy = jasmine.createSpyObj('QuestionService',['getQuestionsHttp']);
-    questionSpy = TestBed.get(QuestionService);
-    questionSpy.getQuestionsHttp.and.returnValue(questionJsonData);
-    service.load().then((result) => {
+  // it('check build response', async () => {
+  //   const questionJsonData = JSON.stringify(getjson());
+  //   console.log();
+  //   //const questionJsonData = require('./questions.json');
+  //   const service = TestBed.get(QuestionService);
+  //   let questionSpy :jasmine.SpyObj<QuestionService>;
+  //   const spy = jasmine.createSpyObj('QuestionService',['getQuestionsHttp']);
+  //   questionSpy = TestBed.get(QuestionService);
+  //   questionSpy.getQuestionsHttp.and.returnValue(questionJsonData);
+  //   service.load().then((result) => {
 
-      console.log();
-      // expect(apiService.fetchData).toHaveBeenCalledWith(video);
-      // expect(result).toEqual(promisedData);
-    });
-    //expect(service).toBeTruthy();
+  //     console.log();
+  //     // expect(apiService.fetchData).toHaveBeenCalledWith(video);
+  //     // expect(result).toEqual(promisedData);
+  //   });
+  //   //expect(service).toBeTruthy();
+  // });
+
+  it('check build response', async () => {
+    const questionJsonData = getjson();
+    console.log();
+    const service = TestBed.get(QuestionService);
+    let res = service.buildResponse(questionJsonData);
+    expect(res.items.length).toEqual(3);
+    expect(res.items[0].options[0].type).toEqual('checkBox');
+
   });
 
 
